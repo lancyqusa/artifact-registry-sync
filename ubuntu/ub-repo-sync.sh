@@ -32,8 +32,8 @@ set mirror_path  ${MIRROR_BASE_PATH}/mirror
 set skel_path    ${MIRROR_BASE_PATH}/skel
 set var_path     ${MIRROR_BASE_PATH}/var
 
-deb http://${GCP_REGION}.gce.archive.ubuntu.com/ubuntu/ ${UBUNTU_CODE_NAME}-updates main restricted
-deb http://security.ubuntu.com/ubuntu ${UBUNTU_CODE_NAME}-security main restricted
+deb http://${GCP_REGION}.gce.archive.ubuntu.com/ubuntu/ ${UBUNTU_CODE_NAME}-updates main
+deb http://security.ubuntu.com/ubuntu ${UBUNTU_CODE_NAME}-security main
 
 clean http://${GCP_REGION}.gce.archive.ubuntu.com/ubuntu
 EOM

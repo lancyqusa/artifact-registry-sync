@@ -29,6 +29,7 @@ BASE_OS_ARTIFACT_REG_REPO=$GCP_AR_REPO_NAME
 FIND_CMD="find $BASE_OS_LOCAL_MIRROR -name $MIRROR_WILDCARD"
 
 LOGFILE=$0.log
+ERRFILE=$0.err
 >$LOGFILE
 function trap_ctrlc ()
 {
@@ -50,11 +51,14 @@ echo "`date` : BASE_OS_LOCAL_MIRROR=$BASE_OS_LOCAL_MIRROR" | tee -a $LOGFILE
 echo "`date` : BASE_OS_ARTIFACT_REG_REPO=$BASE_OS_ARTIFACT_REG_REPO" | tee -a $LOGFILE
 echo "`date` : MIRROR_WILDCARD=$MIRROR_WILDCARD" | tee -a $LOGFILE
 echo "`date` : FIND_CMD=$FIND_CMD" | tee -a $LOGFILE
-read
+
 for i in `$FIND_CMD `
 do
         echo "`date` : processing $i" | tee -a $LOGFILE
         gcloud beta artifacts $GC_AR_REPO_TYPE upload $BASE_OS_ARTIFACT_REG_REPO --location=$GCP_REGION --source=$i
-        if [ $? ]
+        if [ $? -ne 0 ]
+        then
+                echo "Failed Copy: $i" | tee -a $ERRFILE
+        fi
 done
 echo "`date` : Script done " | tee -a $LOGFILE
