@@ -3,12 +3,11 @@
 MIRROR_BASE_PATH=/packages
 GCP_REGION=us-central1
 RH_REPO_NAME=""
-USAGE="Usage: $0 -h <RedHat repo name: e.g rhui-rhel-8-for-x86_64-baseos-rhui-rpms > -r <GCP region> -b <base path, default:/packages>"
+USAGE="Usage: $0 -h <RedHat repo name: e.g rhui-rhel-8-for-x86_64-baseos-rhui-rpms > -b <base path, default:/packages>"
 
-while getopts r:b:h: flag
+while getopts b:h: flag
 do
     case "${flag}" in
-        r) GCP_REGION=${OPTARG};;
         b) MIRROR_BASE_PATH=${OPTARG};;
         h) RH_REPO_NAME=${OPTARG};;
         :) echo $USAGE ; exit 1 ;;
